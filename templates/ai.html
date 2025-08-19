@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="grid two">
+  <div class="card">
+    <h2>AI Recipe Suggestion</h2>
+    <p class="sub">Enter comma-separated ingredients. Uses OpenAI if OPENAI_API_KEY is set, else offline fallback.</p>
+    <form method="post" class="row">
+      <input class="input" name="ingredients" placeholder="e.g., chicken, onion, basil" required>
+      <button class="btn">Suggest</button>
+    </form>
+  </div>
+  <div class="card">
+    {% if suggestion %}
+      <h3>{{ suggestion.title }}</h3>
+      <p class="sub">{{ suggestion.summary }}</p>
+      <h4>Ingredients</h4>
+      <ul>
+        {% for i in suggestion.ingredients %}<li>{{ i }}</li>{% endfor %}
+      </ul>
+      <h4>Steps</h4>
+      <ol>
+        {% for s in suggestion.steps %}<li>{{ s }}</li>{% endfor %}
+      </ol>
+    {% else %}
+      <p class="sub">No suggestion yet.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

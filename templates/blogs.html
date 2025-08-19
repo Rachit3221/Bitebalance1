@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="grid two">
+  <div class="card">
+    <h2>My Blogs</h2>
+    {% if my_blogs %}
+      <div class="grid">
+        {% for b in my_blogs %}
+          <div class="card">
+            <h3>{{ b['title'] }}</h3>
+            <div class="sub">{{ b['created_at'] }}</div>
+            <p>{{ b['content'] }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="sub">No blogs yet.</p>
+    {% endif %}
+  </div>
+  <div class="card">
+    <h2>Write a Blog</h2>
+    <form method="post" action="{{ url_for('create_blog') }}" class="grid">
+      <div>
+        <label>Title</label>
+        <input name="title" class="input" required>
+      </div>
+      <div>
+        <label>Content</label>
+        <textarea name="content" class="input" rows="6" required></textarea>
+      </div>
+      <div>
+        <button class="btn">Publish</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

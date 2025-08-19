@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2>Group: {{ group['name'] }}</h2>
+  <input id="room_name" type="hidden" value="group_{{ group['id'] }}">
+  <div id="chat_box" class="chat-box">
+    {% for m in messages %}
+      <div class="msg">
+        <span class="who">{{ m['username'] }}</span>
+        {{ m['content'] }}
+        <span class="at">{{ m['created_at'] }}</span>
+      </div>
+    {% endfor %}
+  </div>
+  <form id="msg_form" class="row" style="margin-top:10px">
+    <input id="msg_text" class="input" placeholder="Type a message..." autocomplete="off">
+    <button class="btn orange" type="submit">Send</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2>Verify Email</h2>
+  <p class="sub">Enter the 6-digit code we emailed you.</p>
+  <form method="post" class="grid two">
+    <div>
+      <label>OTP Code</label>
+      <input name="otp" class="input" maxlength="6" required>
+    </div>
+    <div style="align-self:end">
+      <button class="btn">Verify</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

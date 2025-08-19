@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="grid two">
+  <div class="card">
+    <h2>All Groups</h2>
+    <table>
+      <thead>
+        <tr><th>Name</th><th>Owner</th><th>Type</th><th>Invite Code</th><th>Action</th></tr>
+      </thead>
+      <tbody>
+        {% for g in all_groups %}
+          <tr>
+            <td>{{ g['name'] }}</td>
+            <td>{{ g['owner_name'] }}</td>
+            <td>{{ 'Public' if g['is_public'] else 'Private' }}</td>
+            <td>{% if not g['is_public'] %}<code>{{ g['invite_code'] }}</code>{% else %}-{% endif %}</td>
+            <td>
+              {% if g['is_member'] %}
+                <a class="btn" href="{{ url_for('enter_group', group_id=g['id']) }}">Enter</a>
+              {% elif g['is_public'] %}
+                <form method="post" action="{{ url_for('join_group', group_id=g['id']) }}">
+                  <button class="btn" type="submit">Join</button>
+                </form>
+              {% else %}
+                <span class="sub">Private</span>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <h2>Create Group</h2>
+    <form method="post" action="{{ url_for('create_group') }}" class="grid">
+      <div><label>Group Name</label><input class="input" name="name" required></div>
+      <div><label>Description</label><input class="input" name="description"></div>
+      <div>
+        <label>Type</label>
+        <select class="input" name="is_public">
+          <option value="1">Public</option>
+          <option value="0">Private (invite code)</option>
+        </select>
+      </div>
+      <div><button class="btn">Create</button></div>
+    </form>
+    <hr style="margin:14px 0;border:none;border-top:1px solid var(--border)">
+    <h3>Join Private Group</h3>
+    <form method="post" action="{{ url_for('join_by_code') }}" class="grid two">
+      <div><label>Invite Code</label><input class="input" name="invite_code" required></div>
+      <div style="align-self:end"><button class="btn">Join</button></div>
+    </form>
+  </div>
+</div>
+{% endblock %}

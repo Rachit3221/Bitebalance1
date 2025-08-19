@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="grid two">
+  <div class="card">
+    <h2>My Recipes</h2>
+    {% if my_recipes %}
+      <table>
+        <thead><tr><th>Title</th><th>Added</th><th>Image</th></tr></thead>
+        <tbody>
+        {% for r in my_recipes %}
+          <tr>
+            <td>{{ r['title'] }}</td>
+            <td>{{ r['created_at'] }}</td>
+            <td>
+              {% if r['image_url'] %}
+                <img src="{{ url_for('uploaded_recipe_image', filename=r['image_url']) }}" style="max-height:60px">
+              {% else %}-{% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="sub">No recipes yet.</p>
+    {% endif %}
+  </div>
+  <div class="card">
+    <h2>Add Recipe</h2>
+    <form method="post" action="{{ url_for('create_recipe') }}" enctype="multipart/form-data" class="grid">
+      <div><label>Title</label><input name="title" class="input" required></div>
+      <div><label>Description</label><textarea name="description" class="input" rows="3"></textarea></div>
+      <div><label>Ingredients (one line)</label><input name="ingredients" class="input" required></div>
+      <div><label>Steps (one line)</label><input name="steps" class="input" required></div>
+      <div><label>Photo</label><input type="file" class="input" name="photo" accept="image/*"></div>
+      <div><button class="btn">Save</button></div>
+    </form>
+  </div>
+</div>
+{% endblock %}

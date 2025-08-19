@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="grid two">
+  <div class="card">
+    <h2>@{{ user['username'] }}</h2>
+    {% if user['avatar_url'] %}
+      <img src="{{ url_for('uploaded_avatar', filename=user['avatar_url']) }}" alt="avatar" style="max-width:180px">
+    {% endif %}
+    <p class="sub">{{ user['bio'] or 'No bio yet.' }}</p>
+    {% if g.user and g.user['id']==user['id'] %}
+      <a class="btn" href="{{ url_for('edit_profile') }}">Edit profile</a>
+    {% endif %}
+  </div>
+  <div class="card">
+    <h3>About</h3>
+    <ul>
+      <li>Email verified: {{ 'Yes' if user['is_verified'] else 'No' }}</li>
+      <li>Joined: {{ user['created_at'] }}</li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

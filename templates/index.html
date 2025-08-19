@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="grid two">
+  <div class="card fade-in">
+    <h1>Welcome to Bite Balance Pro</h1>
+    <p class="sub">A cozy place for recipes, blogs & group chats — now with AI suggestions.</p>
+    {% if not g.user %}
+    <div style="margin-top:10px">
+      <a class="btn" href="{{ url_for('register') }}">Create account</a>
+      <a class="btn ghost" href="{{ url_for('login') }}">Sign in</a>
+    </div>
+    {% endif %}
+  </div>
+  <div class="card fade-in">
+    <h2>Quick Tips</h2>
+    <ul>
+      <li>Use <strong>Groups</strong> to chat with friends. Create <em>Private</em> groups with invite codes.</li>
+      <li>Save your favorite dishes in <strong>Recipes</strong>.</li>
+      <li>Try <strong>AI Recipes</strong> — add ingredients, get a dish idea.</li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

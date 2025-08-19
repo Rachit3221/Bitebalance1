@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2>Edit profile</h2>
+  <form method="post" enctype="multipart/form-data" class="grid two">
+    <div style="grid-column:1 / -1">
+      <label>Bio</label>
+      <textarea class="input" name="bio" rows="4">{{ user['bio'] }}</textarea>
+    </div>
+    <div>
+      <label>Avatar</label>
+      <input class="input" type="file" accept="image/*" name="avatar">
+    </div>
+    <div style="align-self:end">
+      <button class="btn">Save</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
